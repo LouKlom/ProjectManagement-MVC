@@ -22,3 +22,13 @@ You need to Create an administrator account first, no matter what username you c
 - Invite User
 - Mailling
 - Comments under tasks and project
+- Easy Installation (automated admin creation)
+
+
+
+
+## Ended developments
+- Login and Register form
+- Tasks listing
+- Admin pannel
+  
