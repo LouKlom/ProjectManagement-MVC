@@ -21,3 +21,4 @@ You need to Create an administrator account first, no matter what username you c
 - Assign Tasks
 - Invite User
 - Mailling
+- Comments under tasks and project
