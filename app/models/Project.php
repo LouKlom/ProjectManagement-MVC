@@ -12,18 +12,24 @@ class Project {
         return fetch_all($this->pdo, $sql);
     }
 
-    public function getById($id) {
+    public function getById($id, $creatorId = null) {
         $sql = "SELECT * FROM projects WHERE id = :id";
-        return fetch_one($this->pdo, $sql, ['id' => $id]);
+        $params = ['id' => $id];
+        if ($creatorId !== null) {
+            $sql .= " AND creator_id = :creator_id";
+            $params['creator_id'] = $creatorId;
+        }
+        return fetch_one($this->pdo, $sql, $params);
     }
 
-    public function create($name, $description, $start_date, $end_date) {
-        $sql = "INSERT INTO projects (name, description, start_date, end_date) VALUES (:name, :description, :start_date, :end_date)";
+    public function create($name, $description, $start_date, $end_date, $creatorId) {
+        $sql = "INSERT INTO projects (name, description, start_date, end_date, creator_id) VALUES (:name, :description, :start_date, :end_date, :creator_id)";
         execute_query($this->pdo, $sql, [
             'name'        => $name,
             'description' => $description,
             'start_date'  => $start_date,
             'end_date'    => $end_date,
+            'creator_id'  => $creatorId,
         ]);
         return last_insert_id($this->pdo);
     }
@@ -38,6 +44,11 @@ class Project {
             'end_date'    => $end_date,
         ]);
         return true;
+    }
+
+    public function getProjectsByCreator($creatorId) {
+        $sql = "SELECT * FROM projects WHERE creator_id = :creator_id";
+        return fetch_all($this->pdo, $sql, ['creator_id' => $creatorId]);
     }
 
     public function delete($id) {
