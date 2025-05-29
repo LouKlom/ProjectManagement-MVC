@@ -8,7 +8,10 @@
 </head>
 <body>
     <header>
-        <h3 class="appTitle">Project Management</h3>
+        <div class="header-left">
+            <img src="/img/logo.png" alt="Logo Gestion Projets" class="logo">
+            <h1 class="appTitle">Project Management</h1>
+        </div>
         <nav>
             <ul>
                 <?php if (isset($_SESSION['user_id'])): ?>
