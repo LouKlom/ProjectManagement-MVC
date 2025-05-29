@@ -44,7 +44,7 @@
 </form>
 
 <?php if (isset($task['project_id'])): ?>
-    <p><a href="/index.php?route=tasks&action=list&project_id=<?= htmlspecialchars($task['project_id']); ?>">Retour à la liste des tâches</a></p>
+    <p><a href="/index.php?route=projects&action=details&id=<?= htmlspecialchars($task['project_id']); ?>">Retour aux détails du projet</a></p>
 <?php endif; ?>
 
 <?php $content = ob_get_clean(); ?>

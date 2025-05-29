@@ -43,7 +43,7 @@
     <button type="submit">Create Task</button>
 </form>
 
-<p><a href="/index.php?route=tasks&action=list&project_id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Back to Task list</a></p>
+<p><a href="/index.php?route=projects&action=details&id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Back to Task list</a></p>
 
 <?php $content = ob_get_clean(); ?>
 <?php include '../views/layout.php'; ?>

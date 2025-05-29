@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Project Management</h1>
+        <h3 class="appTitle">Project Management</h3>
         <nav>
             <ul>
                 <?php if (isset($_SESSION['user_id'])): ?>
