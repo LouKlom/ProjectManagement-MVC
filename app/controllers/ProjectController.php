@@ -12,7 +12,22 @@ class ProjectController {
     }
 
     public function list() {
-        $projects = $this->projectModel->getAll();
+        $allProjects = $this->projectModel->getAll();
+
+
+        // Separate array for finished or unfinished projects
+        $ongoingProjects = [];
+        $finishedProjects = [];
+
+        foreach ($allProjects as $project) {
+            if($project['finish'] == 1) {
+                $finishedProjects[] = $project;
+            } else {
+                $ongoingProjects[] = $project;
+            }
+        }
+
+        $projects = $ongoingProjects;
         include '../views/projects/list.php';
     }
 
@@ -87,4 +102,26 @@ class ProjectController {
         }
         echo "Projet non trouvé.";
     }
+    
+    public function markAsFinishedAction($id) {
+        if (has_role('ADMIN') && $id) { // Only admins can mark projects as finished
+            $this->projectModel->markAsFinished($id);
+            header("Location: /?route=projects&action=list");
+            exit();
+        } else {
+            echo "Accès non autorisé ou projet non trouvé.";
+        }
+    }
+
+    public function markAsOngoingAction($id) {
+        if (has_role('ADMIN') && $id) { // Only admins can mark projects as ongoing
+            $this->projectModel->markAsOngoing($id);
+            header("Location: /?route=projects&action=list");
+            exit();
+        } else {
+            echo "Accès non autorisé ou projet non trouvé.";
+        }
+    }
+
+
 }

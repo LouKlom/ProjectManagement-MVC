@@ -91,7 +91,14 @@ switch ($route) {
             } elseif ($action === 'details') {
                 $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
                 $projectController->details($projectId);
-            } else {
+            } elseif ($action === 'markAsFinishedAction') { // New action
+                $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
+                $projectController->markAsFinishedAction($projectId);
+            } elseif ($action === 'markAsOngoingAction') { // New action
+                $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
+                $projectController->markAsOngoingAction($projectId);
+            }
+            else {
                 echo "Action de projet non valide.";
             }
         break;

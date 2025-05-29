@@ -45,4 +45,21 @@ class Project {
         execute_query($this->pdo, $sql, ['id' => $id]);
         return true;
     }
+
+    public function getFinishedProjects() {
+        $sql = "SELECT * FROM projects WHERE finish = 1";
+        return fetch_all($this->pdo, $sql);
+    }
+
+    public function markAsFinished($id) {
+        $sql = "UPDATE projects SET finish = 1 WHERE id = :id";
+        execute_query($this->pdo, $sql, ['id' => $id]);
+        return true;
+    }
+
+    public function markAsOngoing($id) {
+        $sql = "UPDATE projects SET finish = 0 WHERE id = :id";
+        execute_query($this->pdo, $sql, ['id' => $id]);
+        return true;
+    }
 }
