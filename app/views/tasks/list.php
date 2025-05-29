@@ -11,8 +11,8 @@
                     (Assigned to : <?= htmlspecialchars($task['assigned_user']); ?>)
                 <?php endif; ?>
                 - Status : <?= htmlspecialchars($task['status']); ?>
-                <a href="/public/index.php?route=tasks&action=edit&id=<?= $task['id']; ?>">Edit</a>
-                <a href="/public/index.php?route=tasks&action=delete&id=<?= $task['id']; ?>" onclick="return confirm('Are you sure you want to delete this task ?');">Delete</a>
+                <a href="/index.php?route=tasks&action=edit&id=<?= $task['id']; ?>">Edit</a>
+                <a href="/index.php?route=tasks&action=delete&id=<?= $task['id']; ?>" onclick="return confirm('Are you sure you want to delete this task ?');">Delete</a>
             </li>
         <?php endforeach; ?>
     </ul>
@@ -20,8 +20,8 @@
     <p>No tasks for this project.</p>
 <?php endif; ?>
 
-<p><a href="/public/index.php?route=tasks&action=create&project_id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Create a new task</a></p>
-<p><a href="/public/index.php?route=projects&action=details&id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Back to project details</a></p>
+<p><a href="/index.php?route=tasks&action=create&project_id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Create a new task</a></p>
+<p><a href="/index.php?route=projects&action=details&id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Back to project details</a></p>
 
 
 <?php $content = ob_get_clean(); ?>

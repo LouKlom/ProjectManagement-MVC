@@ -17,7 +17,7 @@ class UserController {
             $user = $this->userModel->getUserById($userID);
             include '../views/user/profile.php';
         } else {
-            header("Location: /public/index.php?route=auth&action=login");
+            header("Location: /index.php?route=auth&action=login");
             exit();
         }
     }

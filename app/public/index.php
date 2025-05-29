@@ -47,8 +47,10 @@ $publicRoutes = [
 // Vérification de l'authentification pour les autres routes
 if (!isset($publicRoutes[$route]) || !in_array($action, $publicRoutes[$route])) {
     if (!is_logged_in()) {
-        header("Location: /public/index.php?route=auth&action=login");
-        exit();
+        //header("Location: /index.php?route=auth&action=login");
+        //exit();
+        $authController = new AuthController($pdo);
+        $authController->login();
     }
 }
 

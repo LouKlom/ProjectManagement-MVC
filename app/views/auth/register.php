@@ -6,7 +6,7 @@
     <p style="color: red;"><?= htmlspecialchars($error); ?></p>
 <?php endif; ?>
 
-<form method="post" action="/public/index.php?route=auth&action=register">
+<form method="post" action="/index.php?route=auth&action=register">
     <div>
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
@@ -22,7 +22,7 @@
     <button type="submit">Sign up</button>
 </form>
 
-<p>Have an account? <a href="/public/index.php?route=auth&action=login">Sign In</a></p>
+<p>Have an account? <a href="/index.php?route=auth&action=login">Sign In</a></p>
 
 <?php $content = ob_get_clean(); ?>
 <?php include __DIR__ . '/../layout.php'; ?>

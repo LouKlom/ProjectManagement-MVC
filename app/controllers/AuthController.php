@@ -25,7 +25,7 @@ class AuthController{
             } else {
                 $userId = $this->userModel->createUser($username, $password);
                 $_SESSION['user_id'] = $userId;
-                header('Location: /public/index.php?route=projects&action=list');
+                header('Location: /index.php?route=projects&action=list');
                 exit();
             }
             include '../views/auth/register.php';   // formulaire avec erreur
@@ -45,7 +45,7 @@ class AuthController{
 
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
-                header("Location: /public/index.php?route=projects&action=list");
+                header("Location: /index.php?route=projects&action=list");
                 exit();
             } else {
                 $error = "Nom d'utilisateur ou mot de passe incorrect.";
@@ -58,7 +58,7 @@ class AuthController{
     
     public function logout() {
         session_destroy();
-        header("Location: /public/index.php?route=auth&action=login");
+        header("Location: /index.php?route=auth&action=login");
         exit();
     }
        

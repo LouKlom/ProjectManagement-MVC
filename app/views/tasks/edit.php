@@ -2,7 +2,7 @@
 
 <h1>Edit Task</h1>
 
-<form method="post" action="/public/index.php?route=tasks&action=update">
+<form method="post" action="/index.php?route=tasks&action=update">
     <input type="hidden" name="id" value="<?= htmlspecialchars($task['id'] ?? ''); ?>">
     <div>
         <label for="title">Title:</label>
@@ -44,7 +44,7 @@
 </form>
 
 <?php if (isset($task['project_id'])): ?>
-    <p><a href="/public/index.php?route=tasks&action=list&project_id=<?= htmlspecialchars($task['project_id']); ?>">Retour à la liste des tâches</a></p>
+    <p><a href="/index.php?route=tasks&action=list&project_id=<?= htmlspecialchars($task['project_id']); ?>">Retour à la liste des tâches</a></p>
 <?php endif; ?>
 
 <?php $content = ob_get_clean(); ?>

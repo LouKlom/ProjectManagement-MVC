@@ -2,7 +2,7 @@
 
 <h1>Create a new Project</h1>
 
-<form method="post" action="/public/index.php?route=projects&action=store">
+<form method="post" action="/index.php?route=projects&action=store">
     <div>
         <label for="name">Project name:</label>
         <input type="text" id="name" name="name" required>
@@ -22,7 +22,7 @@
     <button type="submit">Create Project</button>
 </form>
 
-<p><a href="/public/index.php?route=projects&action=list">Get Back to Projects List</a></p>
+<p><a href="/index.php?route=projects&action=list">Get Back to Projects List</a></p>
 
 <?php $content = ob_get_clean(); ?>
 <?php include '../views/layout.php'; ?>

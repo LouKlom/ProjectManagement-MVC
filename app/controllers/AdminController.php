@@ -52,7 +52,7 @@ class AdminController {
                 'username' => $username,
                 'role' => $role,
             ]);
-            header("Location: /public/index.php?route=admin&action=listUsers");
+            header("Location: /index.php?route=admin&action=listUsers");
             exit();
         } else {
             echo "Méthode non autorisée ou accès refusé.";
@@ -67,7 +67,7 @@ class AdminController {
                 return;
             }
             $this->userModel->deleteUser($id);
-            header("Location: /public/index.php?route=admin&action=listUsers");
+            header("Location: /index.php?route=admin&action=listUsers");
             exit();
         } else {
             echo "Accès non autorisé.";

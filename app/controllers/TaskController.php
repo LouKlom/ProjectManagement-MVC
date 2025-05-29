@@ -52,7 +52,7 @@ class TaskController {
         $assignedTo = ($assignedTo === '') ? null : $assignedTo;
     
         $taskId = $this->taskModel->create($projectId, $title, $description, $dueDate, $status, $priority, $assignedTo);
-        header("Location: /public/index.php?route=tasks&action=list&project_id=" . $projectId);
+        header("Location: /index.php?route=tasks&action=list&project_id=" . $projectId);
         exit();
     }
 
@@ -85,7 +85,7 @@ class TaskController {
     
             $this->taskModel->update($id, $title, $description, $dueDate, $status, $priority, $assignedTo);
             $task = $this->taskModel->getById($id);
-            header("Location: /public/index.php?route=tasks&action=list&project_id=" . $task['project_id']);
+            header("Location: /index.php?route=tasks&action=list&project_id=" . $task['project_id']);
             exit();
         }
     }
@@ -94,7 +94,7 @@ class TaskController {
         $task = $this->taskModel->getById($id);
         if ($task) {
             $this->taskModel->delete($id);
-            header("Location: /public/index.php?route=tasks&action=list&project_id=" . $task['project_id']);
+            header("Location: /index.php?route=tasks&action=list&project_id=" . $task['project_id']);
             exit();
         }
         echo "Tâche non trouvée.";

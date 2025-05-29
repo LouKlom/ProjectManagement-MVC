@@ -2,7 +2,7 @@
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1em;">
     <h1>User Management</h1>
-    <a href="/public/index.php?route=admin&action=index" class="button-secondary">Back to Administration Pannel</a>
+    <a href="/index.php?route=admin&action=index" class="button-secondary">Back to Administration Pannel</a>
 </div>
 
 <?php if (!empty($users)): ?>
@@ -22,9 +22,9 @@
                     <td><?= htmlspecialchars($user['username']); ?></td>
                     <td><?= htmlspecialchars($user['role']); ?></td>
                     <td>
-                        <a href="/public/index.php?route=admin&action=editUser&id=<?= $user['id']; ?>">Edit</a>
+                        <a href="/index.php?route=admin&action=editUser&id=<?= $user['id']; ?>">Edit</a>
                         <?php if ($user['id'] != $_SESSION['user_id']): ?>
-                            <a href="/public/index.php?route=admin&action=deleteUser&id=<?= $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user ?');">Delete</a>
+                            <a href="/index.php?route=admin&action=deleteUser&id=<?= $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user ?');">Delete</a>
                         <?php endif; ?>
                     </td>
                 </tr>

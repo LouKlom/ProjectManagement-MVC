@@ -3,7 +3,7 @@
 <h1>Edit User</h1>
 
 <?php if ($user): ?>
-    <form method="post" action="/public/index.php?route=admin&action=updateUser&id=<?= htmlspecialchars($user['id']); ?>">
+    <form method="post" action="/index.php?route=admin&action=updateUser&id=<?= htmlspecialchars($user['id']); ?>">
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" value="<?= htmlspecialchars($user['username']); ?>" required>
@@ -17,7 +17,7 @@
         </div>
         <button type="submit">Save</button>
     </form>
-    <p><a href="/public/index.php?route=admin&action=listUsers">Back</a></p>
+    <p><a href="/index.php?route=admin&action=listUsers">Back</a></p>
 <?php else: ?>
     <p>User not found.</p>
 <?php endif; ?>

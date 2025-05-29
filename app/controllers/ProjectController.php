@@ -33,10 +33,10 @@ class ProjectController {
             }
 
             $projectId = $this->projectModel->create($name, $description, $start_date, $end_date);
-            header("Location: /public/index.php?route=projects&action=list");
+            header("Location: /index.php?route=projects&action=list");
             exit();
         } else {
-            header("Location: /public/index.php?route=projects&action=list");
+            header("Location: /index.php?route=projects&action=list");
             exit();
         }
     }
@@ -60,7 +60,7 @@ class ProjectController {
             $end_date = $_POST['end_date'];
 
             $this->projectModel->update($id, $name, $description, $start_date, $end_date);
-            header("Location: /public/index.php?route=projects&action=list");
+            header("Location: /index.php?route=projects&action=list");
             exit();
         }
         echo "Erreur lors de la mise à jour du projet.";
@@ -69,7 +69,7 @@ class ProjectController {
     public function delete($id) {
         if ($id) {
             $this->projectModel->delete($id);
-            header("Location: /public/index.php?route=projects&action=list");
+            header("Location: /index.php?route=projects&action=list");
             exit();
         }
         echo "Projet non trouvé.";

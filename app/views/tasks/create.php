@@ -2,7 +2,7 @@
 
 <h1>Create a new task</h1>
 
-<form method="post" action="/public/index.php?route=tasks&action=store">
+<form method="post" action="/index.php?route=tasks&action=store">
     <input type="hidden" name="project_id" value="<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">
     <div>
         <label for="title">Title:</label>
@@ -43,7 +43,7 @@
     <button type="submit">Create Task</button>
 </form>
 
-<p><a href="/public/index.php?route=tasks&action=list&project_id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Back to Task list</a></p>
+<p><a href="/index.php?route=tasks&action=list&project_id=<?= htmlspecialchars($_GET['project_id'] ?? ''); ?>">Back to Task list</a></p>
 
 <?php $content = ob_get_clean(); ?>
 <?php include '../views/layout.php'; ?>
