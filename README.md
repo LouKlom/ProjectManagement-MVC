@@ -13,7 +13,7 @@ You need to Create an administrator account first, no matter what username you c
 
 
 ## Upcoming developments
-- Sharing and limiting user access
+- Sharing Projects
 - Administration Pannel
 - Images integration
 - Working on security
@@ -24,11 +24,14 @@ You need to Create an administrator account first, no matter what username you c
 - Comments under tasks and project
 - Easy Installation (automated admin creation)
 
-
+## Why not developments
+- Private message / Chat  system
 
 
 ## Ended developments
 - Login and Register form
 - Tasks listing
-- Admin pannel
+- Admin pannel:
+    - User Management: Editing and deleting users
+- Limiting user access on project
   
