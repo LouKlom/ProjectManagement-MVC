@@ -29,7 +29,7 @@
         </nav>
     </header>
     <main>
-        <?= $content ?? ''; // Point d'insertion du contenu des vues ?>
+        <?= $content ?? ''; ?>
     </main>
     <footer>
         <p>&copy; <?= date('Y'); ?> Mon Application de Gestion de Projets</p>

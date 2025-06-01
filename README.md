@@ -12,6 +12,18 @@ The data structure is on the DataStructure folder
 You need to Create an administrator account first, no matter what username you choose, the role column must be equal to 'ADMIN' in capital letters
 
 
+
+## Ongoing developments
+- Comments under Tasks
+    - No project sharring for the moment, so it's useless
+- Error / Actions Log
+    - Currently just for LOGIN
+    - Need to be implemented everywhere
+    - Log Overload:
+        - Need to implement a solution to archive logs and be able to download them on the fly
+        - Or just delete LOGS after X days (7 days by default)
+- Make clear comments on files
+
 ## Upcoming developments
 - Sharing Projects
 - Administration Pannel
@@ -21,8 +33,8 @@ You need to Create an administrator account first, no matter what username you c
 - Assign Tasks
 - Invite User
 - Mailling
-- Comments under tasks and project
 - Easy Installation (automated admin creation)
+
 
 ## Why not developments
 - Private message / Chat  system
@@ -34,4 +46,5 @@ You need to Create an administrator account first, no matter what username you c
 - Admin pannel:
     - User Management: Editing and deleting users
 - Limiting user access on project
+- Logo creation 
   

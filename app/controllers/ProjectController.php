@@ -3,12 +3,14 @@
 class ProjectController {
     private $pdo;
     private $projectModel;
-    private $taskModel; // Ajoute le modèle Task
+    private $taskModel;
+    private $commentModel;
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
         $this->projectModel = new Project($this->pdo);
-        $this->taskModel = new Task($this->pdo); // Instancie le modèle Task
+        $this->taskModel = new Task($this->pdo);
+        $this->commentModel = new Comment($this->pdo);
     }
 
     public function list() {
@@ -152,25 +154,8 @@ class ProjectController {
     }
 
     public function details($id) {
-        if (!is_logged_in()) {
-            header("Location: /?route=auth&action=login");
-            exit();
-        }
-        $userId = $_SESSION['user_id'];
-        $project = null;
-
-        if (has_role('ADMIN')) {
-            $project = $this->projectModel->getById($id);
-        } else {
-            $project = $this->projectModel->getById($id, $userId);
-        }
-
-        if ($project) {
-            $tasks = $this->taskModel->getByProjectId($id);
-            include '../views/projects/details.php';
-            return;
-        }
-        echo "Projet non trouvé ou vous n'avez pas l'autorisation d'y accéder.";
+        header("Location: /?route=projects&action=tasksList&id=" . $id);
+        exit();
     }
     
     public function markAsFinishedAction($id) {
@@ -218,4 +203,30 @@ class ProjectController {
             echo "Accès non autorisé ou projet non trouvé.";
         }
     }
+
+
+    public function tasksList($projectId) {
+        if (!is_logged_in()) {
+            header("Location: /?route=auth&action=login");
+            exit();
+        }
+
+        $userId = $_SESSION['user_id'];
+        $project = null;
+
+        if (has_role('admin')) {
+            $project = $this->projectModel->getById($projectId);
+        } else {
+            $project = $this->projectModel->getById($projectId, $userId);
+        }
+
+        if ($project) {
+            $tasks = $this->taskModel->getByProjectId($projectId);
+            
+            include '../views/tasks/list_by_project.php';
+            return;
+        }
+        echo "Projet non trouvé ou vous n'avez pas l'autorisation d'y accéder.";
+    }
+
 }

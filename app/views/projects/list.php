@@ -16,7 +16,7 @@
         <tbody>
             <?php foreach ($ongoingProjects as $project): ?>
                 <tr>
-                    <td><a href="/?route=projects&action=details&id=<?= $project['id']; ?>"><?= htmlspecialchars($project['name']); ?></a></td>
+                <td><a href="/?route=projects&action=tasksList&id=<?= $project['id']; ?>"><?= htmlspecialchars($project['name']); ?></a></td>
                     <td><?= htmlspecialchars($project['start_date']); ?> - <?= htmlspecialchars($project['end_date']); ?></td>
                     <td>
                         <a href="/?route=projects&action=edit&id=<?= $project['id']; ?>">Modifier</a>
@@ -47,7 +47,7 @@
         <tbody>
             <?php foreach ($finishedProjects as $project): ?>
                 <tr>
-                    <td><a href="/?route=projects&action=details&id=<?= $project['id']; ?>"><?= htmlspecialchars($project['name']); ?></a></td>
+                <td><a href="/?route=projects&action=tasksList&id=<?= $project['id']; ?>"><?= htmlspecialchars($project['name']); ?></a></td>
                     <td><?= htmlspecialchars($project['start_date']); ?> - <?= htmlspecialchars($project['end_date']); ?></td>
                     <td>
                         <?php if (has_role('ADMIN')): ?>

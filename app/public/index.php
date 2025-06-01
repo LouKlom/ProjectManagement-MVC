@@ -9,23 +9,25 @@ require '../controllers/ProjectController.php';
 require '../controllers/TaskController.php';
 require '../controllers/UserController.php';
 require '../controllers/AdminController.php';
+require '../models/Comment.php';
+require '../models/ActivityLog.php';
 
-session_start(); // Démarrer la session
+session_start(); 
 
 $pdo = connect_db();
 
-// Fonction pour vérifier si l'utilisateur est connecté
+
 function is_logged_in() {
     return isset($_SESSION['user_id']) && is_numeric($_SESSION['user_id']);
 }
 
 function has_role($role) {
-    global $loggedInUser; // Utilise la variable globale de l'utilisateur connecté
+    global $loggedInUser; 
 
     return $loggedInUser && isset($loggedInUser['role']) && $loggedInUser['role'] === $role;
 }
 
-// Fonction pour récupérer l'utilisateur connecté
+
 function get_logged_in_user($pdo) {
     if (is_logged_in()) {
         $userModel = new User($pdo);
@@ -39,26 +41,22 @@ $loggedInUser = get_logged_in_user($pdo);
 $route = $_GET['route'] ?? 'projects';
 $action = $_GET['action'] ?? 'list';
 
-// Liste des routes publiques (accessibles sans connexion)
+
 $publicRoutes = [
     'auth' => ['register', 'login'],
 ];
 
-// Vérification de l'authentification pour les autres routes
+
 if (!isset($publicRoutes[$route]) || !in_array($action, $publicRoutes[$route])) {
     if (!is_logged_in()) {
-        //header("Location: /index.php?route=auth&action=login");
-        //exit();
         $authController = new AuthController($pdo);
         $authController->login();
     }
 }
 
-// Reste de la logique de routage (comme précédemment)
 switch ($route) {
     case 'auth':
         $authController = new AuthController($pdo);
-        // Les actions 'register' et 'login' sont gérées ici
         if ($action === 'register') {
             $authController->register();
         } elseif ($action === 'login') {
@@ -88,31 +86,29 @@ switch ($route) {
             } elseif (strpos($action, 'delete') === 0) {
                 $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
                 $projectController->delete($projectId);
-            } elseif ($action === 'details') {
+            } elseif ($action === 'details') { 
                 $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
                 $projectController->details($projectId);
-            } elseif ($action === 'markAsFinishedAction') { // New action
+            } elseif ($action === 'tasksList') { 
+                $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
+                $projectController->tasksList($projectId);
+            } elseif ($action === 'markAsFinishedAction') {
                 $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
                 $projectController->markAsFinishedAction($projectId);
-            } elseif ($action === 'markAsOngoingAction') { // New action
+            } elseif ($action === 'markAsOngoingAction') {
                 $projectId = isset($_GET['id']) ? intval($_GET['id']) : null;
                 $projectController->markAsOngoingAction($projectId);
-            }
-            else {
+            } else {
                 echo "Action de projet non valide.";
             }
-        break;
+            break;
         
         case 'tasks':
             $taskController = new TaskController($pdo);
-            if ($action === 'list') {
-                $projectId = isset($_GET['project_id']) ? intval($_GET['project_id']) : null;
-                $taskController->list($projectId);
-            } elseif ($action === 'create') {
-                $projectId = isset($_GET['project_id']) ? intval($_GET['project_id']) : null;
-                $taskController->create($projectId);
+            if ($action === 'create') {
+                $taskController->create(null);
             } elseif ($action === 'store') {
-                $taskController->store($_POST);
+                $taskController->store(null);
             } elseif (strpos($action, 'edit') === 0) {
                 $taskId = isset($_GET['id']) ? intval($_GET['id']) : null;
                 $taskController->edit($taskId);
@@ -122,6 +118,11 @@ switch ($route) {
             } elseif (strpos($action, 'delete') === 0) {
                 $taskId = isset($_GET['id']) ? intval($_GET['id']) : null;
                 $taskController->delete($taskId);
+            } elseif ($action === 'details') { 
+                $taskId = isset($_GET['id']) ? intval($_GET['id']) : null;
+                $taskController->details($taskId);
+            } elseif ($action === 'addComment') {
+                $taskController->addComment();
             } else {
                 echo "Action de tâche non valide.";
             }
@@ -151,6 +152,8 @@ switch ($route) {
                 } elseif (strpos($action, 'deleteUser') === 0) {
                     $userId = isset($_GET['id']) ? intval($_GET['id']) : null;
                     $adminController->deleteUser($userId);
+                } elseif ($action === 'viewActivityLogs') { 
+                    $adminController->viewActivityLogs();
                 } else {
                     echo "Action d'administration non valide.";
                 }

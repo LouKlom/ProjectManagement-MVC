@@ -3,10 +3,12 @@
 class AuthController{
     private $pdo;
     private $userModel;
+    private $activityLogModel;
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
         $this->userModel = new User($pdo);
+        $this->activityLogModel = new ActivityLog($this->pdo);
     }
 
 
@@ -28,9 +30,9 @@ class AuthController{
                 header('Location: /index.php?route=projects&action=list');
                 exit();
             }
-            include '../views/auth/register.php';   // formulaire avec erreur
+            include '../views/auth/register.php'; 
             } else {
-                include '../views/auth/register.php';  // formulaire vide
+                include '../views/auth/register.php'; 
             }
 
         }
@@ -45,14 +47,31 @@ class AuthController{
 
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
+
+                // Used for Log
+                $this->activityLogModel->logActivity(
+                    $user['id'],
+                    'USER_LOGIN',
+                    'Connexion réussie de l\'utilisateur ' . $user['username'],
+                    'user',
+                    $user['id']
+                );
+
+
                 header("Location: /index.php?route=projects&action=list");
                 exit();
             } else {
+                $usernameAttempt = $_POST['username'] ?? 'Inconnu';
+                $this->activityLogModel->logActivity(
+                    null,
+                    'LOGIN_FAILED',
+                    'Tentative de connexion échouée pour l\'utilisateur ' . $usernameAttempt
+                );
                 $error = "Nom d'utilisateur ou mot de passe incorrect.";
-                include '../views/auth/login.php'; // Afficher le formulaire avec l'erreur
+                include '../views/auth/login.php';
             }
         } else {
-            include '../views/auth/login.php'; // Afficher le formulaire vide
+            include '../views/auth/login.php'; 
         }
     }
     

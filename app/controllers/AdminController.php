@@ -3,10 +3,13 @@
 class AdminController {
     private $pdo;
     private $userModel;
+    private $activityLogModel;
+
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
         $this->userModel = new User($this->pdo);
+        $this->activityLogModel = new ActivityLog($this->pdo);
     }
 
     public function index() {
@@ -44,7 +47,6 @@ class AdminController {
             $username = $_POST['username'];
             $role = $_POST['role'];
 
-            // Ici, tu devrais ajouter une validation pour les données
 
             $sql = "UPDATE users SET username = :username, role = :role WHERE id = :id";
             execute_query($this->pdo, $sql, [
@@ -61,7 +63,6 @@ class AdminController {
 
     public function deleteUser($id) {
         if (has_role('ADMIN')) {
-            // Empêcher la suppression du compte administrateur actuel (optionnel mais recommandé)
             if ($id == $_SESSION['user_id']) {
                 echo "Vous ne pouvez pas supprimer votre propre compte administrateur.";
                 return;
@@ -72,5 +73,23 @@ class AdminController {
         } else {
             echo "Accès non autorisé.";
         }
+    }
+
+
+    public function viewActivityLogs() {
+        if (!has_role('ADMIN')) {
+            echo "Accès non autorisé à l'historique d'activité.";
+            return;
+        }
+
+        $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $limit = 20; 
+        $offset = ($page - 1) * $limit;
+
+        $logs = $this->activityLogModel->getAllLogs($limit, $offset);
+        $totalLogs = $this->activityLogModel->countAllLogs();
+        $totalPages = ceil($totalLogs / $limit);
+
+        include '../views/admin/activity_logs.php';
     }
 }
